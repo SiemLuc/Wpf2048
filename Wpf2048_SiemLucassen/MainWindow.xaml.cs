@@ -10,9 +10,11 @@ namespace Wpf2048_SiemLucassen
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        //Public property for binding.
         public Board Board { get; set; }
 
-        public event PropertyChangedEventHandler PropertyChanged;        
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -38,12 +40,8 @@ namespace Wpf2048_SiemLucassen
                 Board.MoveTo(Move.Right);
             else
             {
-                MessageBox.Show("Use the arrow or AWSD keys to slide the numbers.");
+                MessageBox.Show("Use the arrow or AWSD keys to move the numbers.");
             }
-
-            RaisePropertyChanged("Board.Tiles");
         }
-
-
     }
 }

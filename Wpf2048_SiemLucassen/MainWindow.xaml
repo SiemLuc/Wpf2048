@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:Wpf2048_SiemLucassen"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>        
-        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">           
+    <Grid>
+        <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
             <ItemsControl ItemsSource="{Binding Board.Tiles}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
@@ -41,7 +41,7 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type local:Tile}">
                         <Viewbox>
-                            <TextBlock Text="{Binding Score, NotifyOnTargetUpdated=True}" FontSize="50"/>
+                            <TextBlock Text="{Binding Score, UpdateSourceTrigger=PropertyChanged}" FontSize="50"/>
                         </Viewbox>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
@@ -50,8 +50,6 @@
                 <TextBlock Text="Score :" FontSize="20"></TextBlock>
                 <TextBlock Text="{Binding Board.AllScore, UpdateSourceTrigger=PropertyChanged}" FontSize="20"></TextBlock>
             </StackPanel>
-           </StackPanel>
-     
-
+        </StackPanel>
     </Grid>
 </Window>

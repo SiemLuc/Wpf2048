@@ -20,8 +20,10 @@ namespace Wpf2048_SiemLucassen
         //The board contains a row and column of 4 tiles each. (this is a 2D array)
         private readonly Tile[,] _tiles = new Tile[4, 4];
 
+        //To easily bind the array of tiles as a list.
         public IEnumerable<Tile> Tiles => _tiles.OfType<Tile>();
 
+        //Score of all tiles summed up.
         public int AllScore => CalculateScore();
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -30,7 +32,6 @@ namespace Wpf2048_SiemLucassen
         {
             InitializeBoard();
         }
-
         
         public void RaisePropertyChanged([CallerMemberName] string propertyName = "")
         {
@@ -76,7 +77,7 @@ namespace Wpf2048_SiemLucassen
 
             //Forces the tile to move 3 times if possible.
             for (int i = 0; i < 3; i++)
-            {                
+            {
                 //Loops over each row
                 for (int row = 0; row < 4; row++)
                 {
@@ -205,7 +206,7 @@ namespace Wpf2048_SiemLucassen
                         if (_tiles[row, col].Score == 0)
                         {
                             continue;
-                        } 
+                        }
 
                         if (_tiles[row + 1, col].Score == 0)
                         {
@@ -226,7 +227,6 @@ namespace Wpf2048_SiemLucassen
             return moved;
         }
 
-
         private void GenerateTile()
         {
             //Collects all tiles where the free tiles (score is 0) and puts them in a list.
@@ -235,19 +235,20 @@ namespace Wpf2048_SiemLucassen
             //If there are no free tiles return, because the game is over when there are no free tiles left.          
             if (!freeTiles.Any())
             {
+                //Game should allready be over.
                 return;
             }
 
             //Generates a tile on a random position on the board with a 80% chance being 2 points
             //and a 20% chance being 4 points.
-            
+
             int score = 4;
 
             //The random generates a number between 0 and 100 
             //and if the value is lesser than or equal to 80, sets score to 2.
             if (_random.Next(0, 100) <= 80)
             {
-                 score = 2;
+                score = 2;
             }
 
             //Gets the random position from the free tiles.
@@ -265,7 +266,7 @@ namespace Wpf2048_SiemLucassen
             {
                 for (int col = 0; col < 4; col++)
                 {
-                    score += _tiles[row, col].Score;                 
+                    score += _tiles[row, col].Score;
                 }
             }
             return score;
