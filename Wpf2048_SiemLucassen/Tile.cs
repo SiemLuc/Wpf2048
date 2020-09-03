@@ -22,6 +22,7 @@ namespace Wpf2048_SiemLucassen
 
         public int Row { get; set; }
         public int Column { get; set; }
+        public bool HasMoved { get; internal set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

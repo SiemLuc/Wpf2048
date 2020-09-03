@@ -61,12 +61,30 @@ namespace Wpf2048_SiemLucassen
                     throw new ArgumentOutOfRangeException();
             }
 
+            SetTilesToMoveable();
+
             if (moved)
             {
                 GenerateTile();
                 RaisePropertyChanged("AllScore");
             }
             return moved;
+        }
+
+        private void SetTilesToMoveable()
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                //Loops over each row
+                for (int row = 0; row < 4; row++)
+                {
+                    //Loops over all column besides the first column because the first tile cannot move to the left.
+                    for (int col = 0; col < 4; col++)
+                    {
+                        _tiles[row, col].HasMoved = false;
+                    }
+                }
+            }
         }
 
         private bool MoveLeft()
@@ -85,7 +103,7 @@ namespace Wpf2048_SiemLucassen
                     for (int col = 1; col < 4; col++)
                     {
                         //If the current tile is a free tile it cannot move so it continues with the next position.
-                        if (_tiles[row, col].Score == 0)
+                        if (_tiles[row, col].Score == 0 || _tiles[row, col].HasMoved || _tiles[row, col - 1].HasMoved)
                         {
                             continue;
                         }
@@ -96,15 +114,18 @@ namespace Wpf2048_SiemLucassen
                             moved = true;
                             //Sets the score from the current position to the left tile.
                             _tiles[row, col - 1].Score = _tiles[row, col].Score;
+                           
                             //Resets the score from the current position to a free tile (0 score).
                             _tiles[row, col].Score = 0;
                         }
                         //If the tile on the left is equal to the current score, it sums together on the left tile.
                         else if (_tiles[row, col - 1].Score == _tiles[row, col].Score)
                         {
+                            _tiles[row, col - 1].HasMoved = true;
                             moved = true;
                             _tiles[row, col - 1].Score += _tiles[row, col].Score;
                             _tiles[row, col].Score = 0;
+
                         }
                     }
                 }
