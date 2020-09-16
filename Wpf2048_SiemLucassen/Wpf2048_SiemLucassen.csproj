@@ -98,7 +98,18 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\" />
+    <Content Include="Resources\big-decision.mp3" />
+    <Content Include="Resources\error.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\fun-starts.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\happy-accidents.mp3" />
+    <Content Include="Resources\start.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\bobross.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

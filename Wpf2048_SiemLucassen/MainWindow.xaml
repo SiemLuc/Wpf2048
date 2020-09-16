@@ -7,8 +7,14 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="Resources/bobross.png" Stretch="UniformToFill"/>
+        </Grid.Background>
         <StackPanel HorizontalAlignment="Left" Orientation="Horizontal">
             <ItemsControl ItemsSource="{Binding Board.Tiles}">
+                <ItemsControl.Background>
+                    <ImageBrush/>
+                </ItemsControl.Background>
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <Grid Width="400" Height="400" ShowGridLines="True" HorizontalAlignment="Left">
@@ -41,15 +47,25 @@
                 <ItemsControl.ItemTemplate>
                     <DataTemplate DataType="{x:Type local:Tile}">
                         <Viewbox>
-                            <TextBlock Text="{Binding Score, UpdateSourceTrigger=PropertyChanged}" FontSize="50"/>
+                            <TextBlock Text="{Binding Score, UpdateSourceTrigger=PropertyChanged}" FontSize="50" Foreground="#FF3C930E" FontFamily="Lucida Sans">
+                                <TextBlock.Effect>
+                                    <DropShadowEffect/>
+                                </TextBlock.Effect>
+                            </TextBlock>
                         </Viewbox>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ItemsControl>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Score :" FontSize="20"></TextBlock>
-                <TextBlock Text="{Binding Board.AllScore, UpdateSourceTrigger=PropertyChanged}" FontSize="20"></TextBlock>
-                <Button x:Name="btnGame" Content="New game" Width="130" Height="40" Margin="80,0,0,0" Click="btnGame_Click"></Button>
+            <StackPanel Orientation="Vertical" Width="395">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="  Score :" FontSize="20" Foreground="#FF3C930E" FontFamily="Lucida Sans"></TextBlock>
+                    <TextBlock Text="{Binding Board.AllScore, UpdateSourceTrigger=PropertyChanged}" FontSize="20" Foreground="#FF3C930E" FontFamily="Lucida Sans"></TextBlock>
+                </StackPanel>
+                <Label Content="Oh dear, Bob keeps painting more numbers!" Margin="0, 20, 0, 0" HorizontalAlignment="Center" Foreground="#FF00FF0C" FontFamily="Lucida Sans" FontSize="16" Background="#AF494C46"/>
+                <Label Content="Move with the arrow keys, or use WASD." HorizontalAlignment="Center" Foreground="#FF00FF0C" FontFamily="Lucida Sans" FontSize="16" Background="#AF494C46"/>
+
+                <Button x:Name="btnGame" Content="New game" Width="110" Height="40" Margin="0, 220, 0, 0" Click="btnGame_Click" FontFamily="Lucida Sans" Background="Black" Foreground="White"/>
+                
             </StackPanel>
         </StackPanel>
     </Grid>

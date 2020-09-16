@@ -2,8 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
-
-
+using System.Media;
 namespace Wpf2048_SiemLucassen
 {
     /// <summary>
@@ -14,6 +13,7 @@ namespace Wpf2048_SiemLucassen
         //Public property for binding.
         public Board Board { get; set; }
         
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public MainWindow()
@@ -22,6 +22,7 @@ namespace Wpf2048_SiemLucassen
             this.DataContext = this;
             Board = new Board();
             KeyDown += MoveTiles;
+            btnGame.Click += btnGame_Click;
             
         }
 
@@ -47,8 +48,9 @@ namespace Wpf2048_SiemLucassen
         }
 
         private void btnGame_Click(object sender, RoutedEventArgs e)
-        {
-             
+        {            
+            SoundPlayer s = new SoundPlayer("Resources/start.wav");
+            s.Play();
         }
     }
 }
