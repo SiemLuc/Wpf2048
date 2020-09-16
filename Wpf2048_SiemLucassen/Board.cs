@@ -89,10 +89,11 @@ namespace Wpf2048_SiemLucassen
 
         private bool MoveLeft()
         {
-            bool moved = false;
             //Checks if all tiles have the ability to move to the left tile 
             //and add together if they are the same score.
-
+            
+            bool moved = false;
+            
             //Forces the tile to move 3 times if possible.
             for (int i = 0; i < 3; i++)
             {
@@ -148,7 +149,7 @@ namespace Wpf2048_SiemLucassen
                 {
                     for (int col = 2; col >= 0; col--)
                     {
-                        if (_tiles[row, col].Score == 0)
+                        if (_tiles[row, col].Score == 0 || _tiles[row, col].HasMoved || _tiles[row, col + 1].HasMoved)
                         {
                             continue;
                         }
@@ -161,6 +162,7 @@ namespace Wpf2048_SiemLucassen
                         }
                         else if (_tiles[row, col + 1].Score == _tiles[row, col].Score)
                         {
+                            _tiles[row, col + 1].HasMoved = true;
                             moved = true;
                             _tiles[row, col + 1].Score += _tiles[row, col].Score;
                             _tiles[row, col].Score = 0;
@@ -186,7 +188,7 @@ namespace Wpf2048_SiemLucassen
                 {
                     for (int col = 0; col < 4; col++)
                     {
-                        if (_tiles[row, col].Score == 0)
+                        if (_tiles[row, col].Score == 0 || _tiles[row, col].HasMoved || _tiles[row - 1, col].HasMoved)
                         {
                             continue;
                         }
@@ -199,6 +201,7 @@ namespace Wpf2048_SiemLucassen
                         }
                         else if (_tiles[row - 1, col].Score == _tiles[row, col].Score)
                         {
+                            _tiles[row - 1, col].HasMoved = true;
                             moved = true;
                             _tiles[row - 1, col].Score += _tiles[row, col].Score;
                             _tiles[row, col].Score = 0;
@@ -224,7 +227,7 @@ namespace Wpf2048_SiemLucassen
                 {
                     for (int col = 0; col < 4; col++)
                     {
-                        if (_tiles[row, col].Score == 0)
+                        if (_tiles[row, col].Score == 0 || _tiles[row, col].HasMoved || _tiles[row + 1, col].HasMoved)
                         {
                             continue;
                         }
@@ -237,6 +240,7 @@ namespace Wpf2048_SiemLucassen
                         }
                         else if (_tiles[row + 1, col].Score == _tiles[row, col].Score)
                         {
+                            _tiles[row + 1, col].HasMoved = true;
                             moved = true;
                             _tiles[row + 1, col].Score += _tiles[row, col].Score;
                             _tiles[row, col].Score = 0;
@@ -256,7 +260,7 @@ namespace Wpf2048_SiemLucassen
             //If there are no free tiles return, because the game is over when there are no free tiles left.          
             if (!freeTiles.Any())
             {
-                //Game should allready be over.
+                //Game should allready be over.                
                 return;
             }
 
@@ -277,21 +281,7 @@ namespace Wpf2048_SiemLucassen
 
             //Sets the score on a tile using the randomindex. 
             freeTiles[randomindex].Score = score;
-        }
-
-        private int CalculateScore()
-        {
-            int score = 0;
-
-            for (int row = 0; row < 4; row++)
-            {
-                for (int col = 0; col < 4; col++)
-                {
-                    score += _tiles[row, col].Score;
-                }
-            }
-            return score;
-        }
+        }        
 
         private void InitializeBoard()
         {
@@ -308,6 +298,20 @@ namespace Wpf2048_SiemLucassen
             }
             GenerateTile();
             GenerateTile();
+        }
+
+        private int CalculateScore()
+        {
+            int score = 0;
+
+            for (int row = 0; row < 4; row++)
+            {
+                for (int col = 0; col < 4; col++)
+                {
+                    score += _tiles[row, col].Score;
+                }
+            }
+            return score;
         }
     }
 }

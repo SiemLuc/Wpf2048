@@ -3,6 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
 
+
 namespace Wpf2048_SiemLucassen
 {
     /// <summary>
@@ -12,7 +13,7 @@ namespace Wpf2048_SiemLucassen
     {
         //Public property for binding.
         public Board Board { get; set; }
-
+        
         public event PropertyChangedEventHandler PropertyChanged;
 
         public MainWindow()
@@ -21,6 +22,7 @@ namespace Wpf2048_SiemLucassen
             this.DataContext = this;
             Board = new Board();
             KeyDown += MoveTiles;
+            
         }
 
         public void RaisePropertyChanged([CallerMemberName] string propertyName = "")
@@ -42,6 +44,11 @@ namespace Wpf2048_SiemLucassen
             {
                 MessageBox.Show("Use the arrow or AWSD keys to move the numbers.");
             }
+        }
+
+        private void btnGame_Click(object sender, RoutedEventArgs e)
+        {
+             
         }
     }
 }

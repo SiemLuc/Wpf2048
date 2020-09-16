@@ -49,6 +49,7 @@
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Score :" FontSize="20"></TextBlock>
                 <TextBlock Text="{Binding Board.AllScore, UpdateSourceTrigger=PropertyChanged}" FontSize="20"></TextBlock>
+                <Button x:Name="btnGame" Content="New game" Width="130" Height="40" Margin="80,0,0,0" Click="btnGame_Click"></Button>
             </StackPanel>
         </StackPanel>
     </Grid>
