@@ -1,8 +1,10 @@
 ﻿using System.ComponentModel;
+using System.Media;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Input;
-using System.Media;
+
+
 namespace Wpf2048_SiemLucassen
 {
     /// <summary>
@@ -10,8 +12,17 @@ namespace Wpf2048_SiemLucassen
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        private Board _board;
         //Public property for binding.
-        public Board Board { get; set; }
+        public Board Board
+        {
+            get => _board;
+            set
+            {
+                _board = value;
+                RaisePropertyChanged();
+            }
+        }
         
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -23,6 +34,7 @@ namespace Wpf2048_SiemLucassen
             Board = new Board();
             KeyDown += MoveTiles;
             btnGame.Click += btnGame_Click;
+
             
         }
 
@@ -48,9 +60,8 @@ namespace Wpf2048_SiemLucassen
         }
 
         private void btnGame_Click(object sender, RoutedEventArgs e)
-        {            
-            SoundPlayer s = new SoundPlayer("Resources/start.wav");
-            s.Play();
+        {      
+            Board = new Board();            
         }
     }
 }

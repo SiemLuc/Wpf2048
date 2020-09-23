@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-
+using System.Media;
 namespace Wpf2048_SiemLucassen
 {
     /// <summary>
@@ -14,6 +12,11 @@ namespace Wpf2048_SiemLucassen
     /// </summary>
     public class Board : INotifyPropertyChanged
     {
+        SoundPlayer spStart = new SoundPlayer(@"C:\Users\siem\Desktop\Fontys\Software\Wedstrijd\Wpf2048_SiemLucassen\Wpf2048_SiemLucassen\Resources\start.wav");
+        SoundPlayer spAccident = new SoundPlayer(@"C:\Users\siem\Desktop\Fontys\Software\Wedstrijd\Wpf2048_SiemLucassen\Wpf2048_SiemLucassen\Resources\happy-accidents.wav");
+        SoundPlayer spError = new SoundPlayer(@"C:\Users\siem\Desktop\Fontys\Software\Wedstrijd\Wpf2048_SiemLucassen\Wpf2048_SiemLucassen\Resources\error.wav");
+        SoundPlayer spBrush = new SoundPlayer(@"C:\Users\siem\Desktop\Fontys\Software\Wedstrijd\Wpf2048_SiemLucassen\Wpf2048_SiemLucassen\Resources\Brush.wav");
+
         //The random source for tile generation.
         private static readonly Random _random = new Random();
 
@@ -29,7 +32,7 @@ namespace Wpf2048_SiemLucassen
         public event PropertyChangedEventHandler PropertyChanged;
 
         public Board()
-        {
+        {            
             InitializeBoard();
         }
         
@@ -66,8 +69,10 @@ namespace Wpf2048_SiemLucassen
             if (moved)
             {
                 GenerateTile();
+                spBrush.Play();
                 RaisePropertyChanged("AllScore");
             }
+            
             return moved;
         }
 
@@ -78,7 +83,7 @@ namespace Wpf2048_SiemLucassen
                 //Loops over each row
                 for (int row = 0; row < 4; row++)
                 {
-                    //Loops over all column besides the first column because the first tile cannot move to the left.
+                    //Loops over all column besides the first column because the first tile cannot move.
                     for (int col = 0; col < 4; col++)
                     {
                         _tiles[row, col].HasMoved = false;
@@ -105,7 +110,7 @@ namespace Wpf2048_SiemLucassen
                     {
                         //If the current tile is a free tile it cannot move so it continues with the next position.
                         if (_tiles[row, col].Score == 0 || _tiles[row, col].HasMoved || _tiles[row, col - 1].HasMoved)
-                        {
+                        {                            
                             continue;
                         }
 
@@ -260,7 +265,8 @@ namespace Wpf2048_SiemLucassen
             //If there are no free tiles return, because the game is over when there are no free tiles left.          
             if (!freeTiles.Any())
             {
-                //Game should allready be over.                
+                spAccident.Play();
+                //Game should allready be over.  
                 return;
             }
 
@@ -280,11 +286,12 @@ namespace Wpf2048_SiemLucassen
             int randomindex = _random.Next(freeTiles.Count);
 
             //Sets the score on a tile using the randomindex. 
-            freeTiles[randomindex].Score = score;
+            freeTiles[randomindex].Score = score;            
         }        
 
         private void InitializeBoard()
         {
+            spStart.Play();
             for (int row = 0; row < 4; row++)
             {
                 for (int col = 0; col < 4; col++)

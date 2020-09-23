@@ -98,14 +98,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\big-decision.mp3" />
-    <Content Include="Resources\error.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\fun-starts.mp3">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\happy-accidents.mp3" />
+    <Content Include="Resources\big-decision.wav" />
+    <Content Include="Resources\Brush.wav" />
+    <Content Include="Resources\error.wav" />
+    <Content Include="Resources\happy-accidents.wav" />
     <Content Include="Resources\start.wav" />
   </ItemGroup>
   <ItemGroup>
